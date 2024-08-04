@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certificates:/etc/letsencrypt/live/ct519-522.ck2all.com:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web1
+      - web2
+      - web3
+    networks:
+      - webnet
+
+  web1:
+    build:
+      context: ./web1
+    container_name: web1
+    networks:
+      - webnet
+
+  web2:
+    build:
+      context: ./web2
+    container_name: web2
+    networks:
+      - webnet
+
+  web3:
+    build:
+      context: ./web3
+    container_name: web3
+    networks:
+      - webnet
+
+networks:
+  webnet:
+
