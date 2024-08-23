@@ -15,29 +15,31 @@ services:
       - web2
       - web3
     networks:
-      - webnet
+      - frontend
+      - backend
 
   web1:
     build:
       context: ./web1
     container_name: web1
     networks:
-      - webnet
-
+      - backend
   web2:
     build:
       context: ./web2
     container_name: web2
     networks:
-      - webnet
-
+      - backend
   web3:
     build:
       context: ./web3
     container_name: web3
     networks:
-      - webnet
+      - backend
 
 networks:
-  webnet:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
 
